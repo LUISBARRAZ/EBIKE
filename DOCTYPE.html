@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thundr-Bike Customizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'LogoFont';
+            src: url('fonts/logo-font.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background: #222;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        header img {
+            height: 70px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'LogoFont', 'Open Sans', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FFEE00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+/* Light selection styling */
+.light-option {
+    padding: 8px 15px;
+    border-radius: 8px;
+    background-color: #eee;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.light-option:hover {
+    background-color: #ddd;
+}
+
+.light-option.selected {
+    background-color: #FFEE00;
+    color: #000;
+}
+
+
+        header h1:hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #FFEE00;
+            font-size: 1rem;
+            transition: color 0.3s;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            color: #FFECB3;
+        }
+
+        .main {
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .options {
+            padding: 20px;
+            flex: 1;
+            background: #f4f4f4;
+        }
+
+        .bike-preview {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border-left: 1px solid #ddd;
+        }
+
+        .bike-preview img {
+            max-width: 90%;
+            max-height: 70%;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .bike-preview img:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #222;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .color-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .color-circle:hover {
+            border-color: #333;
+        }
+
+        .color-circle.red { background-color: red; }
+        .color-circle.black { background-color: black; }
+        .color-circle.white { background-color: white; border: 1px solid #ddd; }
+        .color-circle.blue { background-color: blue; }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Styling for tire selection */
+        .tire-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tire-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .tire-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .tire-item span {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .tire-item.selected {
+            box-shadow: 0 0 10px 2px yellow;
+            background-color: #fffbe0;
+        }
+
+        /* Light selection */
+        .light-picker {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .light-option {
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: #eee;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+
+        .light-option:hover {
+            background-color: #ddd;
+        }
+
+        .light-option.selected {
+            background-color: #FFEE00;
+            color: #000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #222;
+            color: #ccc;
+            margin-top: 20px;
+            box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);}
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Thundr-Bike Logo">
+        <h1 onclick="window.location.href='index.html'">Thundr-Bike</h1>
+        <nav>
+            <a href="#customizer">Customize</a>
+            <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="container" id="customizer">
+            <div class="options">
+                <h2>Customize Your Bike</h2>
+                <label>Choose a color:</label>
+                <div class="color-picker">
+                    <div class="color-circle red" onclick="setColor('red')"></div>
+                    <div class="color-circle black" onclick="setColor('black')"></div>
+                    <div class="color-circle white" onclick="setColor('white')"></div>
+                    <div class="color-circle blue" onclick="setColor('blue')"></div>
+                </div>
+
+                <!-- Tire selection icons with names -->
+                <div class="tire-selection">
+                    <div class="tire-item" onclick="setTire('city')">
+                        <img src="images/tire1.png" alt="City Tire">
+                        <span>City</span>
+                    </div>
+                    <div class="tire-item" onclick="setTire('off-road')">
+                        <img src="images/tire2.png" alt="Off-Road Tire">
+                        <span>Off-Road</span>
+                    </div>
+                    <div class="tire-item" onclick="setTire('road')">
+                        <img src="images/tire3.png" alt="Road Tire">
+                        <span>Road</span>
+                    </div>
+                </div>
+
+                <!-- Light selection goes here -->
+               <!-- New Light Selection Section -->
+<label>Choose a light:</label>
+<div class="light-picker">
+    <div class="light-option" id="light-standard" onclick="setLight('standard')">
+        Standard
+    </div>
+    <div class="light-option" id="light-led" onclick="setLight('led')">
+        LED (+$$$)
+    </div>
+    <div class="light-option" id="light-none" onclick="setLight('none')">
+        None
+    </div>
+</div>
+            </div>
+            <div class="bike-preview">
+                <img id="previewImage" src="images/white-city.png" alt="Bike preview">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Thundr-Bike | Designed with passion.</p>
+    </footer>
+
+    <script>
+        let selectedColor = 'white';
+        let selectedTire = 'city';
+        let selectedLight = 'standard';
+
+        function setColor(color) {
+            selectedColor = color;
+            updatePreview();
+        }
+
+        function setTire(tire) {
+            selectedTire = tire;
+            updatePreview();
+        }
+
+        function setLight(light) {
+            selectedLight = light;
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = `images/${selectedColor}-${selectedTire}.png`;
+        }
+function setLight(light) {
+    selectedLight = light;
+
+    // Remove the selected class from all light options
+    document.querySelectorAll('.light-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+
+    // Add selected class to the chosen light option
+    document.getElementById(`light-${light}`).classList.add('selected');
+}
+
+    </script>
+</body>
+</html>
+
+
